@@ -16,5 +16,5 @@ public class WelcomeController {
 	    return greeting;
 	}
 
-	
+	//Adding this comment to test auto trigger
 }
