@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class WelcomeController {
-
+	//Adding this comment to test auto trigger
 	@GetMapping("/")
 	public String welcome() {
 	    LocalTime currentTime = LocalTime.now();
@@ -16,5 +16,5 @@ public class WelcomeController {
 	    return greeting;
 	}
 
-	//Adding this comment to test auto trigger
+	
 }
