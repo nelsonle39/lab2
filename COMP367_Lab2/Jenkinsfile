@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir('COMP367_Lab2') { 
-                    sh 'mvn clean package'
+                    sh './mvnw clean package -U'
                 }
             }
         }
@@ -26,6 +26,8 @@ pipeline {
             }
         }
     }
+
+    
     post {
         success {
             echo 'Build and Tests completed successfully!'
