@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                dir('COMP367_Lab2') {  
+                dir('COMP367_Lab2') {
                     sh 'mvn clean package'
                 }
             }
@@ -20,18 +20,30 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+        stage('Docker Login') {
             steps {
-                echo 'Deploying the application...'
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials-id', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                }
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t nle39/comp367_lab2 .'
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                sh 'docker push nle39/comp367_lab2'
             }
         }
     }
     post {
         success {
-            echo 'Build and Tests completed successfully!'
+            echo 'Build, Tests, and Deployment completed successfully!'
         }
         failure {
-            echo 'The build or tests failed!'
+            echo 'The pipeline failed. Check the logs for errors.'
         }
     }
 }
