@@ -29,7 +29,9 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t nle39/comp367_lab2 .'
+                dir('COMP367_Lab2') { // Added dir block to navigate to the correct folder
+                    sh 'docker build -t nle39/comp367_lab2 .'
+                }
             }
         }
         stage('Push Docker Image') {
